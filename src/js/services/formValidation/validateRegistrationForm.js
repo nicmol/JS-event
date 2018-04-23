@@ -1,3 +1,5 @@
+// Notice the export statement and the import in home.js
+// Notice the structure of the parameter and the return value
 export default function validateRegistrationForm(formValues) {
 
   const result = {
@@ -21,29 +23,32 @@ export default function validateRegistrationForm(formValues) {
 
 }
 
+// must be longer than 3 chars
 function validateUserName(name) {
-  return name.length > 3;
+  return true;
 }
 
+// must be a valid email address.  Use a regular expression
 function validateEmail(email) {
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(email);
+  true;
 }
 
+// must be a valid 10 digit phone number.  Use a regular expression
 function validatePhone(phone) {
-  const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-  return phoneRegex.test(phone);
+  return true;
 }
 
+// must be between 10 and 25 inclusive
 function validateAge(age) {
-  return age >= 10 && age <= 25;
+  return true;
 }
 
+// must be either school, college, trainee or employee
 function validateProfession(profession) {
-  const acceptedValues = ['school','college','trainee','employee'];
-  return acceptedValues.indexOf(profession) > -1;
+  return true;
 }
 
+// must be between 0 and 4 years exclusive
 function validateExperience(experience) {
-  return experience > 0 && experience < 4;
+  return true;
 }

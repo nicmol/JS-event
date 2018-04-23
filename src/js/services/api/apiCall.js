@@ -28,15 +28,21 @@ export default function apiCall(route, body = {}, method='GET') {
         .then(resolve)
         .catch(reject);
 
-    });
+    }); // end of Promise called request
 
     const timeout = new Promise((request, reject) => {
       setTimeout(reject, timeoutDuration, `Request timed out!`);
-    });
+    }); // end of Promise called timeout
 
     return new Promise((resolve, reject) => {
       Promise.race([request, timeout])
         .then(resolve)
         .catch(reject);
-    });
+    }); 
+    /* the method ultimately returns a promise, 
+       either the promise that results from the ajax call or
+       the promise that resulted from the 5 second timeout,
+       which ever finishes first
+    */
+
 }
