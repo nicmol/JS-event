@@ -1,4 +1,6 @@
 import './general';
+
+/* Part 1 - Check out the validation module in services/formValidation */
 import validateRegistrationForm from './services/formValidation/validateRegistrationForm';
 import apiCall from './services/api/apiCall';
 
@@ -7,25 +9,48 @@ import '../../node_modules/toastr/toastr.less';
 
 class Home {
   constructor() {
-    /* Add references to each of these elements on the page
-    this.$form = 
-    this.$username = 
-    this.$email = 
-    this.$phone = 
-    this.$age = 
-    this.$profession = 
-    this.$experience = 
-    this.$comment = 
-    this.$submit = 
-    this.$loadingIndicator = 
+    /* Part 2 - Finish the constructor
+       - Add references to each of these elements on the page
+          this.$form = 
+          this.$username = 
+          this.$email = 
+          this.$phone = 
+          this.$age = 
+          this.$profession = 
+          this.$experience = 
+          this.$comment = 
+          this.$submit = 
+          this.$loadingIndicator = 
+      - Add a sumbit handler to the form that calls onFormSubmit
+        - You don't actually want to submit the form so you'll have to 
+          prevent the default behavior on the event when it fires.
+          That means that you'll need the event as a parameter to onFormSubmit
     */
-
-    // add a submit handler to the form that calls onFormSubmit
-    // you'll need the event as a parameter
-
   }
 
-  /* Finish each of these UI related methods */
+  /* Part 3 - Write the first version of onFormSubmit */
+  onFormSubmit(event) {
+    // make sure the form is not submitted
+    // get the values from the form and store in a variable
+
+    /* call the validateRegistrationForm method 
+       pass variable from line above as a parameter.
+       It will return an object that you should store in a varable
+    */
+
+    // if the form is valid
+    //    clear the errors
+    //    call submitForm with the values from the form as a parameter
+    //    (only the stub for submitForm is written. You'll write it  
+    //     after testing validation and talking about the ajax call service)
+    // otherwise
+    //    clear all of the errors
+    //    highlight the errors
+    // end if
+  }
+
+  /* Part 4 - Finish these 4 UI related methods */
+
   /* This method packages up all of the form data into one object
      Get the data from each of the form fields.
      Notice how the experience that is checked is retrieved.
@@ -67,31 +92,17 @@ class Home {
     this.$username.parentElement.classList.remove('has-error');
   }
 
-  onFormSubmit(event) {
-    // make sure the form is not submitted
-    // get the values from the form and store in a variable
-    /* call the validateRegistrationForm method 
-       pass variable from line above as a parameter.
-       It will return an object that you should store in a varable
-    */
+  /* TEST - Instantiate a Home object at bottom of file first */
 
-    // if the form is valid
-    //    clear the errors
-    //    call submitForm with the values from the form as a parameter
-    // otherwise
-    //    clear all of the errors
-    //    highlight the errors
-    // end if
+  /* Part 5 - Check out the ajax module in services/api/apiCall.js */
 
-    // TEST NOW.  Everything should work but the ajax call
-  }
-
+  /* Part 6 - Finish this function.  It makes the api call.  TEST */
   submitForm(formValues) {
 
     // hide the submit button
     // show the loading indicator
     /* call apiCall and
-       pass 'registration', the form values, and POST as parameters
+       pass '/registration', the form values, and POST as parameters
        When the ajax call returns successfully
           show the submit button
           hide the loading indicator
@@ -105,7 +116,7 @@ class Home {
           toastr.error('Error!');
     */
   }
-}
+} // end of the class definition
 
 // add a window onload handler. 
 // It should create an (unnamed) instance of the class for this page
