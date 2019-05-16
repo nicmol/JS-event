@@ -103,3 +103,5 @@ class Status {
 }
 
 // add a window on load handler that creates a new instance of this class
+let status;
+window.onload = () => {status = new Status();}
