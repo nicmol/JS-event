@@ -9,34 +9,41 @@ import '../../node_modules/toastr/toastr.less';
 
 class Home {
   constructor() {
-    /* Part 2 - Finish the constructor
-       - Add references to each of these elements on the page
-          this.$form = 
-          this.$username = 
-          this.$email = 
-          this.$phone = 
-          this.$age = 
-          this.$profession = 
-          this.$experience = 
-          this.$comment = 
-          this.$submit = 
-          this.$loadingIndicator = 
-      - Add a sumbit handler to the form that calls onFormSubmit
-        - You don't actually want to submit the form so you'll have to 
+     //Part 2 - Finish the constructor
+      // Add references to each of these elements on the page
+          this.$form = document.querySelectorAll('#registrationForm')
+          this.$username = document.querySelectorAll('#username')
+          this.$email = document.querySelectorAll('#email')
+          this.$phone = document.querySelectorAll('#phone')
+          this.$age = document.querySelectorAll('#age')
+          this.$profession = document.querySelectorAll('#profession')
+          this.$experience = document.querySelectorAll('#experience')
+          this.$comment = document.querySelectorAll('#comment')
+          this.$submit = document.querySelectorAll('#submit')
+          this.$loadingIndicator = document.querySelectorAll('#loadingIndicator')
+    /*    Add a sumbit handler to the form that calls onFormSubmit
+        You don't actually want to submit the form so you'll have to 
           prevent the default behavior on the event when it fires.
-          That means that you'll need the event as a parameter to onFormSubmit
-    */
+          That means that you'll need the event as a parameter to onFormSubmit */
+          this.$form.addEventListener('submit', event => {
+            this.onFormSubmit(event)
+          });
+        
   }
 
   /* Part 3 - Write the first version of onFormSubmit */
   onFormSubmit(event) {
     // make sure the form is not submitted
     // get the values from the form and store in a variable
+    event.preventDefault()
 
+     formVals= this.$form.value
+      
     /* call the validateRegistrationForm method 
        pass variable from line above as a parameter.
        It will return an object that you should store in a varable
     */
+      this.validateRegistrationForm(formVals)
 
     // if the form is valid
     //    clear the errors
@@ -47,6 +54,8 @@ class Home {
     //    clear all of the errors
     //    highlight the errors
     // end if
+    
+
   }
 
   /* Part 4 - Finish these 4 UI related methods */
