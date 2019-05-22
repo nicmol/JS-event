@@ -64,7 +64,8 @@ function validateAge(age) {
 
 // must be either school, college, trainee or employee.  No reg exp.
 function validateProfession(profession) {
-  return true;
+  const acceptedValues = ['school', 'college', 'trainee', 'employee'];
+  return acceptedValues.indexOf(profession) > 1;
 }
 
 // must be between 0 and 4 years exclusive.  Use a regular expression.
