@@ -174,9 +174,9 @@ class Home {
 
 // add a window onload handler. 
 // It should create an (unnamed) instance of the class for this page
-//let home;
-//window.onload = () => { home = new Home(); }
+let home;
+window.onload = () => { home = new Home(); }
 
-window.addEventListener("load", () => {
+/* window.addEventListener("load", () => {
   new Home();
-});
+}); */
