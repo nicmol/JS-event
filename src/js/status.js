@@ -5,23 +5,26 @@ import Chart from 'chart.js';
 
 class Status {
   constructor() {
-    /* Part 1 - Finish the constructor
-    - Add references to each of these elements on the page
+     //Part 1 - Finish the constructor
+     //Add references to each of these elements on the page
         this.$experienceTab = document.querySelector('#experienceTab');
-        this.$professionTab = 
-        this.$ageTab = 
-        this.$ageCanvas = 
-        this.$professionCanvas = 
-        this.$experienceCanvas = 
-        this.$loadingIndicator = 
-        this.$tabArea = 
-        this.$chartArea = 
-        this.$errorMessage = 
-    - Add an instance variable for the data that comes back from the service
+        this.$professionTab = document.querySelector('#professionTab');
+        this.$ageTab = document.querySelector('#ageTab');
+        this.$ageCanvas = document.querySelector('#ageCanvas');
+        this.$professionCanvas = document.querySelector('#professionCanvas');
+        this.$experienceCanvas = document.querySelector('#experienceCanvas');
+        this.$loadingIndicator = document.querySelector('#loadingIndicator');
+        this.$tabArea = document.querySelector('#tabArea');
+        this.$chartArea = document.querySelector('#chartArea');
+        this.$errorMessage = document.querySelector('#errorMessage');
+     //Add an instance variable for the data that comes back from the service
+
         this.statisticData;
-    - Call loadData.  It will make the ajax call and create one graph
-    - Call addEventListeners
-    */
+    //Call loadData.  It will make the ajax call and create one graph
+    this.loadData();
+    // Call addEventListeners
+    this.addEventListeners();
+    
   }
 
 /* Part 2 - Write these 2 methods. 
@@ -39,12 +42,28 @@ class Status {
           hide the loading indicator
           show the error message
       */
+    apiCall('statistics')
+      .then(response => {
+        this.statisticData = response;
+        this.$loadingIndicator.classList.add('hidden');
+        this.$tabArea.classList.remove('hidden');
+        this.$chartArea.classList.remove('hidden');
+        this.loadExperience();
+      })
+
+      .catch(() => {
+        this.$loadingIndicator.classList.add('hidden');
+        this.$errorMessage.classList.remove('hidden');
+      });
   }
 
   addEventListeners() {
     // add a click event handler to the experienceTab.  Call loadExperience.  Bind the class.
     // add a click event handler to the professionTab...
     // add a click event handler to the ageTab...
+    this.$experienceTab.addEventListener('click', this.loadExperience.bind(this));
+    this.$professionTab.addEventListener('click', this.loadProfession.bind(this));
+    this.$ageTab.addEventListener('click', this.loadAge.bind(this));
   }
 
   hideCharts() {
@@ -93,15 +112,76 @@ class Status {
   // It's just like the loadExperience but there are 4 'slices' for 
   // 'School Students', 'College Students', 'Trainees', 'Employees'
   loadProfession(event = null) {
+    if(event) event.preventDefault();
+    this.hideCharts();
+    this.$professionCanvas.classList.remove('hidden');
+    this.$professionTab.parentElement.classList.add('active');
+    const data = {
+        datasets: [{
+            data: this.statisticData.profession,
+            backgroundColor:[
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+            ],
+            borderColor: [
+              'white',
+              'white',
+              'white',
+              'white',
+            ]
+        }],
+        labels: [
+            'School Students',
+            'College Students',
+            'Trainees',
+            'Employees'
+         ]
+    };
+    new Chart(this.$professionCanvas,{
+      type: 'pie',
+      data,
+    });
   }
 
   // It's just like the loadExperience but there are 3 'slices' for 
   // '10-15 years', '15-20 years', '20-25 years'
   loadAge(event = null) {
+    if(event) event.preventDefault();
+    this.hideCharts();
+    this.$ageCanvas.classList.remove('hidden');
+    this.$ageTab.parentElement.classList.add('active');
+    const data = {
+        datasets: [{
+            data: this.statisticData.age,
+            backgroundColor:[
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+            ],
+            borderColor: [
+              'white',
+              'white',
+              'white',
+            ]
+        }],
+        labels: [
+            '10-15 years',
+            '15-20 years',
+            '20-25 years'
+        ]
+    };
+    new Chart(this.$ageCanvas,{
+      type: 'pie',
+      data,
+    });
   }
-
 }
 
 // add a window on load handler that creates a new instance of this class
 let status;
 window.onload = () => {status = new Status();}
+/* window.addEventListener("load", () => {
+  new Status();
+}); */
